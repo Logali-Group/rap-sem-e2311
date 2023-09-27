@@ -1,0 +1,15 @@
+@EndUserText.label: 'Service Definition - Travel'
+define service Zsd_travel_lgl {
+  expose zc_travel_lgl            as Travel;
+  expose zc_booking_lgl           as Booking;
+  expose /DMO/I_Customer          as Passenger;
+  expose /DMO/I_Agency            as TravelAgency;
+  expose /DMO/I_Carrier           as Airline;
+  expose /DMO/I_Connection        as FlightConnection;
+  expose /DMO/I_Flight            as Flight;
+  expose /DMO/I_Airport           as Airport;
+  expose /DMO/I_Overall_Status_VH as OveallStatusVH;
+  expose /DMO/I_Booking_Status_VH as BookingStatusVH;
+  expose I_Currency               as Currency;
+  expose I_Country                as Country;
+}
