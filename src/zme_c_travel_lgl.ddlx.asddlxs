@@ -34,11 +34,17 @@ annotate entity zc_travel_lgl with
   @UI: { lineItem:       [ { position: 20, importance: #HIGH } ] ,
          identification: [ { position: 20 } ],
          selectionField: [ { position: 20 } ] }
+  @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency_StdVH',
+                                       element: 'AgencyID'  },
+                                       useForValidation: true }]
   AgencyID;
 
   @UI: { lineItem:       [ { position: 30, importance: #HIGH } ] ,
          identification: [ { position: 30 } ],
          selectionField: [ { position: 30 } ] }
+  @Consumption.valueHelpDefinition: [{entity: {name: '/DMO/I_Customer_StdVH',
+                                      element: 'CustomerID' },
+                                      useForValidation: true}]
   CustomerID;
 
   @UI: { lineItem:       [ { position: 40, importance: #MEDIUM } ] ,
@@ -57,7 +63,10 @@ annotate entity zc_travel_lgl with
          identification: [ { position: 70 } ] }
   TotalPrice;
 
-  //  CurrencyCode;
+  @Consumption.valueHelpDefinition: [{entity: {name: 'I_CurrencyStdVH',
+                                     element: 'Currency' },
+                                     useForValidation: true }]
+  CurrencyCode;
 
   @UI: { lineItem:       [ { position: 90, importance: #MEDIUM } ] ,
          identification: [ { position: 90 } ] }
@@ -67,6 +76,8 @@ annotate entity zc_travel_lgl with
          identification: [ { position: 99, label: 'Status' } ],
          selectionField: [{ position: 40 }],
          textArrangement: #TEXT_ONLY }
+  @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Overall_Status_VH', 
+                                       element: 'OverallStatus'  } }]
   OverallStatus;
 
   @UI.hidden: true

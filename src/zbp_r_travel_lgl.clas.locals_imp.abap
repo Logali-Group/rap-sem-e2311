@@ -469,6 +469,31 @@ class lhc_Travel implementation.
   endmethod.
 
   method Resume.
+    data: lt_entities_update type t_entities_update.
+
+    read entities of zr_travel_lgl in local mode
+      entity Travel
+        fields ( AgencyID )
+        with value #(
+                      for key in keys
+                        %is_draft = if_abap_behv=>mk-on
+                        ( %key = key-%key )
+                    )
+        result data(lt_travels).
+
+    " Set %control-AgencyID (if set) to true, so that the precheck_auth checks the permissions.
+    lt_entities_update = corresponding #( lt_travels changing control ).
+
+    if lt_entities_update is not initial.
+      precheck_auth(
+        exporting
+          entities_update = lt_entities_update
+        changing
+          failed          = failed-travel
+          reported        = reported-travel
+      ).
+    endif.
+
   endmethod.
 
   method calculateTotalPrice.
@@ -781,9 +806,9 @@ class lhc_Travel implementation.
       update_granted = cond #( when sy-subrc = 0 then abap_true else abap_false ).
     endif.
 
-      "Simulation for full authorization
-      "(not to be used in productive code)
-      update_granted = abap_true.
+    "Simulation for full authorization
+    "(not to be used in productive code)
+    update_granted = abap_true.
 
   endmethod.
 

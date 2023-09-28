@@ -27,29 +27,72 @@ annotate entity zc_booking_lgl with
 
   @UI: { lineItem:       [ { position: 40, importance: #HIGH } ],
          identification: [ { position: 40 } ] }
+  @Consumption.valueHelpDefinition: [{entity: {name: '/DMO/I_Customer_StdVH',
+                                      element: 'CustomerID' },
+                                      useForValidation: true}]
   CustomerID;
 
   @UI: { lineItem:       [ { position: 50, importance: #HIGH } ],
          identification: [ { position: 50 } ] }
+  @Consumption.valueHelpDefinition: [
+          { entity: {name: '/DMO/I_Flight_StdVH', element: 'AirlineID'},
+            additionalBinding: [ { localElement: 'FlightDate',   element: 'FlightDate',   usage: #RESULT},
+                                 { localElement: 'ConnectionID', element: 'ConnectionID', usage: #RESULT},
+                                 { localElement: 'FlightPrice',  element: 'Price',        usage: #RESULT},
+                                 { localElement: 'CurrencyCode', element: 'CurrencyCode', usage: #RESULT } ],
+            qualifier: 'FlightVH1',
+            label: 'Flights' }
+        ]
   AirlineID;
 
   @UI: { lineItem:       [ { position: 60, importance: #HIGH } ],
          identification: [ { position: 60 } ] }
+  @Consumption.valueHelpDefinition: [
+          { entity: {name: '/DMO/I_Flight_StdVH', element: 'ConnectionID'},
+            additionalBinding: [ { localElement: 'FlightDate',   element: 'FlightDate',   usage: #RESULT},
+                                 { localElement: 'AirlineID',    element: 'AirlineID',    usage: #FILTER_AND_RESULT},
+                                 { localElement: 'FlightPrice',  element: 'Price',        usage: #RESULT},
+                                 { localElement: 'CurrencyCode', element: 'CurrencyCode', usage: #RESULT } ],
+            qualifier: 'FlightVH2',
+            label: 'Flights' }
+        ]
   ConnectionID;
 
   @UI: { lineItem:       [ { position: 70, importance: #HIGH } ],
          identification: [ { position: 70 } ] }
+  @Consumption.valueHelpDefinition: [
+          { entity: {name: '/DMO/I_Flight_StdVH', element: 'FlightDate'},
+            additionalBinding: [ { localElement: 'AirlineID',    element: 'AirlineID',    usage: #FILTER_AND_RESULT},
+                                 { localElement: 'ConnectionID', element: 'ConnectionID', usage: #FILTER_AND_RESULT},
+                                 { localElement: 'FlightPrice',  element: 'Price',        usage: #RESULT},
+                                 { localElement: 'CurrencyCode', element: 'CurrencyCode', usage: #RESULT } ],
+            label: 'Flights',
+            useForValidation: true }
+        ]
   FlightDate;
 
   @UI: { lineItem:       [ { position: 80, importance: #HIGH } ],
          identification: [ { position: 80 } ] }
+  @Consumption.valueHelpDefinition: [
+          { entity: {name: '/DMO/I_Flight_StdVH', element: 'Price'},
+            additionalBinding: [ { localElement: 'FlightDate',   element: 'FlightDate',   usage: #FILTER_AND_RESULT},
+                                 { localElement: 'AirlineID',    element: 'AirlineID',    usage: #FILTER_AND_RESULT},
+                                 { localElement: 'ConnectionID', element: 'ConnectionID', usage: #FILTER_AND_RESULT},
+                                 { localElement: 'CurrencyCode', element: 'CurrencyCode', usage: #RESULT } ],
+            label: 'Flights',
+            useForValidation: true }
+        ]
   FlightPrice;
-
-  //  CurrencyCode;
+  @Consumption.valueHelpDefinition: [{entity: {name: 'I_CurrencyStdVH',
+                                               element: 'Currency' },
+                                               useForValidation: true }]
+  CurrencyCode;
 
   @UI: { lineItem:       [ { position: 90, importance: #HIGH } ],
          identification: [ { position: 90 } ],
          textArrangement: #TEXT_ONLY }
+  @Consumption.valueHelpDefinition: [{entity: {name: '/DMO/I_Booking_Status_VH',
+                                               element: 'BookingStatus' }}]
   BookingStatus;
 
   @UI.hidden: true
